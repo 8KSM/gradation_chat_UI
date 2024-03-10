@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat</title>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        #message-container {
+            height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            transition: background-color 0.5s;
+        }
+
+        #input-container {
+            margin-top: 10px;
+        }
+
+        #message-input {
+            width: 70%;
+            padding: 8px;
+        }
+
+        #send-button {
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="message-container">
+        <!-- add -->
+    </div>
+
+    <div id="input-container">
+        <input type="text" id="message-input" placeholder="text">
+        <button id="send-button">send</button>
+    </div>
+
+    <script>
+        const messageContainer = document.getElementById('message-container');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        const colors = ['#7d13f8', '#7430f7', '#6b4df7', '#616af7', '#5887f6', '#4fa3f6', '#46c0f6'];
+
+        function sendMessage() {
+            const messageText = messageInput.value;
+            if (messageText.trim() === '') {
+                alert('text');
+                return;
+            }
+
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.textContent = messageText;
+            messageContainer.appendChild(messageElement);
+
+            updateMessageColors();
+
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            messageInput.value = '';
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+
+        messageInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        messageContainer.addEventListener('scroll', updateMessageColors);
+
+        function updateMessageColors() {
+            const messages = document.querySelectorAll('.message');
+            const containerHeight = messageContainer.clientHeight;
+            const scrollPosition = messageContainer.scrollTop;
+
+            messages.forEach((message, index) => {
+                const messageTop = message.offsetTop - messageContainer.offsetTop;
+                const messageBottom = messageTop + message.offsetHeight;
+                let colorIndex;
+
+                if (messageTop < scrollPosition + containerHeight * 0.2) {
+                    colorIndex = 0;
+                } else if (messageBottom > scrollPosition + containerHeight * 0.8) {
+                    colorIndex = colors.length - 1;
+                } else {
+                    const progress = (messageTop - scrollPosition) / containerHeight;
+                    colorIndex = Math.floor(progress * (colors.length - 1)) + 1;
+                }
+
+                message.style.backgroundColor = colors[colorIndex];
+            });
+        }
+    </script>
+
+</body>
+
+</html>
