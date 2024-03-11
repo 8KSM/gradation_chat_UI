@@ -1,34 +1,65 @@
-#message-container {
-    height: 300px;
-    /* 메시지 창의 높이를 조절하세요 */
+body {
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.message-container {
+    height: 60vh;
+    width: 80%;
+    max-width: 600px;
     overflow-y: auto;
-    /* 메시지가 넘칠 경우 스크롤 생성 */
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .message {
-    margin-bottom: 5px;
+    max-width: 70%;
     padding: 10px;
-    border-radius: 5px;
-    background-color: #3498db;
-    /* 파란색 배경 */
-    color: white;
-    /* 흰색 텍스트 */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    word-wrap: break-word;
 }
 
-#input-container {
-    margin-top: 10px;
+.left-message {
+    align-self: flex-start;
+    background-color: #fff;
+    border: 1px solid #ccc;
 }
 
-#message-input {
-    width: 70%;
-    padding: 8px;
+.right-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: #fff;
 }
 
-#send-button {
-    padding: 8px 20px;
-    background-color: #4CAF50;
-    color: white;
+.input-container {
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.send-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
 }
